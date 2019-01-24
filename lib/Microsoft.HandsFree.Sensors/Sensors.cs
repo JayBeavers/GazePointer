@@ -13,6 +13,8 @@ namespace Microsoft.HandsFree.Sensors
         [Description("Log Playback")]
         LogPlayback,
         [Description("None")]
-        None
+        None,
+        [Description("EyeTech DS")]
+        EyeTechDS
     }
 }
