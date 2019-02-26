@@ -15,6 +15,8 @@ namespace Microsoft.HandsFree.Sensors
         [Description("None")]
         None,
         [Description("EyeTech DS")]
-        EyeTechDS
+        EyeTechDS,
+        [Description("IrisBond")]
+        IrisBond
     }
 }

@@ -34,6 +34,9 @@ namespace Microsoft.HandsFree.Sensors
                 case Sensors.EyeTechDS:
                     gazeDataProvider = new EyeTechDSSensor();
                     break;
+                case Sensors.IrisBond:
+                    gazeDataProvider = new IrisBondSensor();
+                    break;
                 default:
                     throw new ArgumentException("Unknown sensor type");
             }
