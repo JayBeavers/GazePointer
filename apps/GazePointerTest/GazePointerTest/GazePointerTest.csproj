@@ -118,6 +118,10 @@
       <Project>{3d58b016-b156-4401-8785-4e0182655ede}</Project>
       <Name>Microsoft.HandsFree.MVVM</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\lib\Microsoft.HandsFree.Sensors\Microsoft.HandsFree.Sensors.csproj">
+      <Project>{48e96990-1267-477a-8ad3-e4972f3c8945}</Project>
+      <Name>Microsoft.HandsFree.Sensors</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\lib\Microsoft.HandsFree.Settings\Microsoft.HandsFree.Settings.csproj">
       <Project>{C738745B-1AF0-4D65-BEA7-082FB61864EC}</Project>
       <Name>Microsoft.HandsFree.Settings</Name>

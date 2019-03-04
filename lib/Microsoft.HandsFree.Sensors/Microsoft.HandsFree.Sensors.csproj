@@ -49,7 +49,7 @@
     <Reference Include="System.Windows" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xaml" />
-    <Reference Include="Tobii.EyeX.Client.Net20, Version=1.8.504.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=MSIL">
+    <Reference Include="Tobii.EyeX.Client.Net20, Version=1.8.486.0, Culture=neutral, PublicKeyToken=70326046dcdce6cb, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\external\TobiiEyeXSDK-DotNet-1.8.486\lib\x64\Tobii.EyeX.Client.Net20.dll</HintPath>
     </Reference>
@@ -107,7 +107,15 @@
       <Link>IrisbondAPI.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="..\..\external\TobiiEyeXSDK-DotNet-1.8.486\lib\x64\EyeXFramework.dll">
+      <Link>EyeXFramework.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="..\..\external\TobiiEyeXSDK-DotNet-1.8.486\lib\x64\Tobii.EyeX.Client.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\..\external\TobiiEyeXSDK-DotNet-1.8.486\lib\x64\Tobii.EyeX.Client.Net20.dll">
+      <Link>Tobii.EyeX.Client.Net20.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\..\external\TobiiGazeSdk-DotNetApi-2.1.3.304-Win64\lib\TobiiGazeCore64.dll">

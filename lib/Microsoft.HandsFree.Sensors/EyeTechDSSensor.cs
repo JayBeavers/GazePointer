@@ -38,8 +38,13 @@ namespace Microsoft.HandsFree.Sensors
                 QuickLink2API.QLDevice_GetFrame(deviceId, (IntPtr)10000, ref frameData);
                 if (frameData.WeightedGazePoint.Valid)
                 {
-                    var eventData = new GazeEventArgs(frameData.WeightedGazePoint.x * System.Windows.SystemParameters.PrimaryScreenWidth / 100, frameData.WeightedGazePoint.y * System.Windows.SystemParameters.PrimaryScreenHeight / 100
-, Environment.TickCount, Fixation.Unknown, false);
+                    var eventData = new GazeEventArgs(
+                        frameData.WeightedGazePoint.x * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 100,
+                        frameData.WeightedGazePoint.y * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 100,
+                        Environment.TickCount,
+                        Fixation.Unknown,
+                        false
+                    );
 
                     _gazeEvent?.Invoke(this, eventData);
                 }
@@ -68,8 +73,8 @@ namespace Microsoft.HandsFree.Sensors
             }
 
             IntPtr calibrationId = IntPtr.Zero;
-            Calibrate.AutoCalibrate(deviceId, QLCalibrationType.QL_CALIBRATION_TYPE_16, ref calibrationId);
-            QuickLink2API.QLDevice_ApplyCalibration(deviceId, calibrationId);
+            //Calibrate.AutoCalibrate(deviceId, QLCalibrationType.QL_CALIBRATION_TYPE_16, ref calibrationId);
+            //QuickLink2API.QLDevice_ApplyCalibration(deviceId, calibrationId);
 
             _timer = new DispatcherTimer(TimeSpan.FromSeconds(1.0 / 15), DispatcherPriority.Normal, Tick, Dispatcher.CurrentDispatcher);
 

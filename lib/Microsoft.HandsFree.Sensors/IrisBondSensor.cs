@@ -51,8 +51,8 @@ namespace Microsoft.HandsFree.Sensors
             float distanceFactor)
         {
             var eventData = new GazeEventArgs(
-                mouseX * System.Windows.SystemParameters.PrimaryScreenWidth / 100,
-                mouseY * System.Windows.SystemParameters.PrimaryScreenHeight / 100,
+                mouseX * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width / 100,
+                mouseY * System.Windows.Forms.Screen.PrimaryScreen.Bounds.Height / 100,
                 Environment.TickCount, Fixation.Unknown, false);
 
             _gazeEvent?.Invoke(this, eventData);

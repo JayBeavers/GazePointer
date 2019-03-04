@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.HandsFree.MVVM;
 using System.Windows.Controls;
 using Microsoft.HandsFree.GazePointer;
+using Microsoft.HandsFree.Sensors;
 
 namespace GazePointerTest
 {
@@ -35,7 +36,12 @@ namespace GazePointerTest
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _pointer = GazePointer.Attach(this, null, GetGazeClickParameters, AppSettings.Instance.Mouse);
+            _pointer = GazePointer.Attach(this, null, GetGazeClickParameters,
+                new Microsoft.HandsFree.GazePointer.Settings {
+                    ShowCursor = true,
+                    Sensor = new Microsoft.HandsFree.Sensors.Settings {
+                        Sensor = Sensors.EyeTechDS }
+                });
         }
 
         private static readonly GazeClickParameters _clickParams = new GazeClickParameters
