@@ -36,12 +36,7 @@ namespace GazePointerTest
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            _pointer = GazePointer.Attach(this, null, GetGazeClickParameters,
-                new Microsoft.HandsFree.GazePointer.Settings {
-                    ShowCursor = true,
-                    Sensor = new Microsoft.HandsFree.Sensors.Settings {
-                        Sensor = Sensors.EyeTechDS }
-                });
+            _pointer = GazePointer.Attach(this, null, GetGazeClickParameters, AppSettings.Instance.Mouse);
         }
 
         private static readonly GazeClickParameters _clickParams = new GazeClickParameters
