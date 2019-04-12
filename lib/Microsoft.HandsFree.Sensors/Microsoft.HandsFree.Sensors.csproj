@@ -59,7 +59,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\..\external\IrisBond-3.7.3.0\IrisbondDuo.cs">
+    <Compile Include="..\..\external\IrisBond-3.7.7\IrisbondDuo.cs">
       <Link>IrisbondDuo.cs</Link>
     </Compile>
     <Compile Include="EyeTechDSSensor.cs" />
@@ -103,7 +103,7 @@
       <Link>SMX11MX.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\..\external\IrisBond-3.7.3.0\IrisbondAPI.dll">
+    <Content Include="..\..\external\IrisBond-3.7.7\IrisbondAPI.dll">
       <Link>IrisbondAPI.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
