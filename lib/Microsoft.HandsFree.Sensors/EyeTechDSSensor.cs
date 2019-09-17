@@ -12,8 +12,6 @@ namespace Microsoft.HandsFree.Sensors
     {
         DispatcherTimer _timer;
 
-        int _mouseMoveCount;
-
         event EventHandler<GazeEventArgs> IGazeDataProvider.GazeEvent
         {
             add
