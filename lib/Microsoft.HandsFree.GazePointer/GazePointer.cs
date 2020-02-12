@@ -908,7 +908,7 @@ namespace Microsoft.HandsFree.GazePointer
                                   (targetCenter.Y - targetPointFiltered.Y) / target.ActualHeight);
         }
 
-        public static void LaunchRecalibration()
+        public void LaunchRecalibration()
         {
             _gazeDataProvider.LaunchRecalibration();
         }
