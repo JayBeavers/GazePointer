@@ -11,7 +11,6 @@ namespace Microsoft.HandsFree.Sensors
 {
     public class TobiiEyeXSdk : IGazeDataProvider
     {
-        readonly TraceSource _trace = new TraceSource("TobiiEyeXSdk", SourceLevels.Information);
         private readonly EyeXHost _eyeXHost = new EyeXHost();
 
         public event EventHandler<GazeEventArgs> GazeEvent;
@@ -24,6 +23,8 @@ namespace Microsoft.HandsFree.Sensors
         private readonly Dispatcher _dispatcher = System.Windows.Application.Current.Dispatcher;
 
         public Sensors Sensor { get { return Sensors.TobiiEyeXSDK; } }
+
+        public TraceSource Trace { get; } = new TraceSource("TobiiEyeXSdk", SourceLevels.Information);
 
         public TobiiEyeXSdk(bool useFixationStream)
         {
@@ -49,7 +50,7 @@ namespace Microsoft.HandsFree.Sensors
             var initialized = false;
 
             var initialSemaphore = new SemaphoreSlim(0);
-            var initialCallback = (EventHandler<EngineStateValue<EyeTrackingDeviceStatus>>)((s, e) =>
+            void initialCallback(object s, EngineStateValue<EyeTrackingDeviceStatus> e)
             {
                 switch (e.Value)
                 {
@@ -65,7 +66,7 @@ namespace Microsoft.HandsFree.Sensors
                         initialSemaphore.Release();
                         break;
                 }
-            });
+            }
             _eyeXHost.EyeTrackingDeviceStatusChanged += initialCallback;
 
             // Wait a bit for the tracking engine to initialize the device status  
@@ -119,31 +120,6 @@ namespace Microsoft.HandsFree.Sensors
             RaiseGazeEvent(e.X, e.Y, e.Timestamp);
         }
 
-        static bool IsSuccessDeviceStatus(EyeTrackingDeviceStatus status)
-        {
-            switch (status)
-            {
-                case EyeTrackingDeviceStatus.Initializing:
-                case EyeTrackingDeviceStatus.Configuring:
-                case EyeTrackingDeviceStatus.Tracking:
-                case EyeTrackingDeviceStatus.TrackingPaused:
-                    return true;
-
-                default:
-                    return false;
-            }
-        }
-
-        static bool IsFailedDeviceStatus(EyeTrackingDeviceStatus status)
-        {
-            return status == EyeTrackingDeviceStatus.DeviceNotConnected;
-        }
-
-        static bool IsStableDeviceStatus(EyeTrackingDeviceStatus status)
-        {
-            return IsSuccessDeviceStatus(status) || IsFailedDeviceStatus(status);
-        }
-
         async Task WaitForConfigurationToCompleteAsync()
         {
             // Wait up to about 1s for device to start configuring.
@@ -166,12 +142,12 @@ namespace Microsoft.HandsFree.Sensors
 
         static EyeTrackingDeviceStatus GetDeviceStatus(EngineStateValue<EyeTrackingDeviceStatus> status)
         {
-            return status.IsValid ? status.Value : default(EyeTrackingDeviceStatus);
+            return status.IsValid ? status.Value : default;
         }
 
         static EyeTrackingConfigurationStatus GetConfigurationStatus(EngineStateValue<EyeTrackingConfigurationStatus> status)
         {
-            return status.IsValid ? status.Value : default(EyeTrackingConfigurationStatus);
+            return status.IsValid ? status.Value : default;
         }
 
         void DeviceStatusHandler(object sender, EngineStateValue<EyeTrackingDeviceStatus> e)
@@ -219,7 +195,7 @@ namespace Microsoft.HandsFree.Sensors
             StartStatusListening();
 
             // Wait for a good configuration status.
-            while (_configurationStatus == default(EyeTrackingConfigurationStatus))
+            while (_configurationStatus == default)
             {
                 await _semaphore.WaitAsync();
             }
@@ -257,22 +233,10 @@ namespace Microsoft.HandsFree.Sensors
 
         public void LaunchRecalibration()
         {
-            {
-                var start = new ThreadStart(() =>
-                {
-                    Thread.Sleep(5000);
-                    SendKeys.SendWait("{ENTER}");
-                });
-                var thread = new Thread(start);
-                thread.Start();
-            }
-
-            {
-                var start = new ThreadStart(() => _eyeXHost.LaunchRecalibration());
-                var thread = new Thread(start);
-                thread.Start();
-            }
+            var start = new ThreadStart(() => _eyeXHost.LaunchRecalibration());
+            var thread = new Thread(start);
+            thread.Start();
         }
-    }
 
+    }
 }

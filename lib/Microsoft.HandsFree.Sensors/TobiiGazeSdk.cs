@@ -82,7 +82,15 @@ namespace Microsoft.HandsFree.Sensors
 
             if (!_eyeTracker.Connected)
             {
-                _eyeTracker.Connect();
+                try
+                {
+                    _eyeTracker.Connect();
+                }
+                catch (EyeTrackerException)
+                {
+                    return false;
+                }
+
                 _eyeTracker.StartTracking();
             }
 

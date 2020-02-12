@@ -51,19 +51,19 @@ namespace Microsoft.HandsFree.Sensors
             float distanceFactor)
         {
             var eventData = new GazeEventArgs(
-                mouseX * System.Windows.SystemParameters.PrimaryScreenWidth / 100,
-                mouseY * System.Windows.SystemParameters.PrimaryScreenHeight / 100,
+                mouseX,
+                mouseY,
                 Environment.TickCount, Fixation.Unknown, false);
 
             _gazeEvent?.Invoke(this, eventData);
         }
 
+        IrisbondDuo.DATA_CALLBACK fndataCallback;
         public bool Initialize()
         {
-            IrisbondDuo.setDataCallback(dataCallback);
-
+            fndataCallback = new IrisbondDuo.DATA_CALLBACK(dataCallback);
             var status = IrisbondDuo.start();
-
+            IrisbondDuo.setDataCallback(fndataCallback);
             return status == IrisbondDuo.START_STATUS.START_OK;
         }
 
@@ -72,10 +72,11 @@ namespace Microsoft.HandsFree.Sensors
             LaunchRecalibration();
             return Task.FromResult(true);
         }
-
+        
         public void LaunchRecalibration()
         {
             IrisbondDuo.startCalibration(9);
+            IrisbondDuo.waitForCalibrationToEnd(2);
         }
 
         public void Terminate()

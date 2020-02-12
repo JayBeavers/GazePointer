@@ -3,6 +3,7 @@ using System.Windows;
 using Microsoft.HandsFree.MVVM;
 using System.Windows.Controls;
 using Microsoft.HandsFree.GazePointer;
+using Microsoft.HandsFree.Sensors;
 
 namespace GazePointerTest
 {
